@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المنصة الهندسية الموحدة لجامعات حجة | لغة C++</title>
+    <!-- مكتبة html2canvas لتصدير الشهادة كصورة PNG عالية الدقة -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,700;1,700&family=Cairo:wght@400;600;700;800&display=swap');
+
+        :root {
+            --royal-bg: #fdfbf7;
+            --royal-card-bg: linear-gradient(145deg, #ffffff, #fbf7ee);
+            --gold-primary: #d4af37;
+            --gold-dark: #aa771c;
+            --gold-light: #fcf6ba;
+            --gold-border: #e6c875;
+            --text-dark: #2c251e;
+            --code-bg: #141210;
+            --sidebar-bg: #ffffff;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --theme-glow: rgba(212, 175, 55, 0.2);
+            --theme-icon: "🧠";
+        }
+
+        /* 🤖 ثيم قسم الذكاء الاصطناعي (AI Theme) */
+        body.theme-ai {
+            --gold-primary: #00d2ff;
+            --gold-dark: #0083b0;
+            --gold-border: #80e5ff;
+            --theme-glow: rgba(0, 210, 255, 0.25);
+            --theme-icon: "🧠🤖";
+            background-image: radial-gradient(rgba(0, 210, 255, 0.15) 1px, transparent 1px);
+        }
+
+        /* 🛡️ ثيم قسم الأمن السيبراني (Cyber Security Theme) */
+        body.theme-cyber {
+            --gold-primary: #00ff87;
+            --gold-dark: #00a859;
+            --gold-border: #80ffc3;
+            --theme-glow: rgba(0, 255, 135, 0.25);
+            --theme-icon: "🛡️🔐";
+            background-image: radial-gradient(rgba(0, 255, 135, 0.15) 1px, transparent 1px);
+        }
+
+        /* 🌙 المظهر الداكن الملكي */
+        body.dark-mode {
+            --royal-bg: #0f0e0c;
+            --royal-card-bg: linear-gradient(145deg, #181512, #100e0c);
+            --text-dark: #f7f0d4;
+            --code-bg: #080706;
+            --sidebar-bg: #141210;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
+            background-color: var(--royal-bg);
+            background-image: radial-gradient(#e2d29b 0.85px, transparent 0.85px);
+            background-size: 26px 26px;
+            color: var(--text-dark);
+            min-height: 100vh;
+            direction: rtl;
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* -------------------------------------------------------------
+           1. بوابة الدخول للأقسام الهندسية
+        ------------------------------------------------------------- */
+        .portal-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        .portal-card {
+            background: var(--royal-card-bg);
+            border: 2.5px solid var(--gold-primary);
+            border-radius: 22px;
+            padding: 42px 36px;
+            width: 100%;
+            max-width: 520px;
+            box-shadow: 0 15px 35px var(--theme-glow), inset 0 0 15px rgba(255, 255, 255, 0.5);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            animation: fadeInPortal 0.7s ease-in-out;
+        }
+
+        @keyframes fadeInPortal {
+            from { opacity: 0; transform: translateY(25px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .portal-crown {
+            font-size: 2.2rem;
+            display: block;
+            margin-bottom: 5px;
+            filter: drop-shadow(0 3px 6px var(--gold-primary));
+        }
+
+        .portal-title {
+            font-family: 'Amiri', serif;
+            font-size: 2.1rem;
+            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .portal-subtitle {
+            color: var(--gold-dark);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            border-bottom: 1px dashed var(--gold-border);
+            padding-bottom: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--gold-dark);
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 13px 15px;
+            border-radius: 12px;
+            border: 1.8px solid var(--gold-border);
+            background: var(--royal-bg);
+            color: var(--text-dark);
+            font-size: 0.94rem;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus {
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 12px var(--theme-glow);
+        }
+
+        .btn-portal-primary {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-primary) 100%);
+            color: #ffffff;
+            border: 1.5px solid var(--gold-border);
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 18px var(--theme-glow);
+            margin-top: 10px;
+        }
+
+        .btn-portal-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px var(--theme-glow);
+        }
+
+        .btn-portal-admin {
+            width: 100%;
+            padding: 11px;
+            background: var(--royal-card-bg);
+            color: var(--gold-dark);
+            border: 1.8px solid var(--gold-border);
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: all 0.3s ease;
+        }
+
+        /* -------------------------------------------------------------
+           2. النوافذ المنبثقة والشهادة
+        ------------------------------------------------------------- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 14, 12, 0.85);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .admin-card {
+            background: var(--royal-card-bg);
+            border: 2px solid var(--gold-primary);
+            border-radius: 18px;
+            padding: 30px 25px;
+            width: 90%;
+            max-width: 550px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .certificate-card {
+            background: linear-gradient(135deg, #ffffff 0%, #fffdf8 50%, #faf3e0 100%);
+            border: 3.5px solid #d4af37;
+            border-radius: 20px;
+            padding: 35px 28px;
+            width: 92%;
+            max-width: 650px;
+            box-shadow: 0 20px 50px rgba(170, 119, 28, 0.35);
+            text-align: center;
+            position: relative;
+            direction: rtl;
+            color: #2c251e;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px; left: 15px;
+            background: none; border: none;
+            color: var(--gold-dark); font-size: 1.6rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* -------------------------------------------------------------
+           3. الواجهة الرئيسية
+        ------------------------------------------------------------- */
+        .main-app-container {
+            display: none;
+            background-color: var(--royal-bg);
+            color: var(--text-dark);
+            height: 100vh;
+            overflow: hidden;
+            direction: rtl;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .royal-banner {
+            background: var(--royal-card-bg);
+            border: 1.5px solid var(--gold-primary);
+            border-radius: 12px;
+            padding: 12px 18px;
+            text-align: center;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px var(--theme-glow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .gold-title-large {
+            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Amiri', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        .author-card {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .author-name {
+            font-family: 'Amiri', serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            background: var(--theme-glow);
+            padding: 2px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--gold-border);
+        }
+
+        .supervisor-name {
+            font-family: 'Amiri', serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--gold-dark);
+        }
+
+        .student-badge-bar {
+            background: var(--royal-card-bg);
+            border: 1px solid var(--gold-border);
+            border-radius: 10px;
+            padding: 10px 18px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.92rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .rank-badge {
+            background: linear-gradient(135deg, #aa771c, #d4af37);
+            color: #ffffff;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .sidebar {
+            width: 280px;
+            min-width: 240px;
+            max-width: 310px;
+            background-color: var(--sidebar-bg);
+            padding: 18px 12px 35px 12px;
+            box-shadow: -4px 0 20px var(--theme-glow);
+            overflow-y: auto;
+            border-right: 2px solid var(--gold-border);
+            order: 2;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            font-family: 'Amiri', serif;
+            color: var(--gold-dark);
+            border-bottom: 2px solid var(--gold-border);
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .progress-tracker-box {
+            background: var(--theme-glow);
+            border: 1px solid var(--gold-border);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 12px;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .lesson-btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            background: var(--royal-card-bg);
+            color: var(--text-dark);
+            border: 1px solid var(--gold-border);
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: right;
+            font-size: 0.88rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .lesson-btn:hover {
+            border-color: var(--gold-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px var(--theme-glow);
+        }
+
+        .lesson-btn.active {
+            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-primary) 100%);
+            border-color: var(--gold-dark);
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .exam-btn {
+            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-primary) 100%) !important;
+            color: #ffffff !important;
+            border: 1.5px solid var(--gold-border) !important;
+            margin-top: 15px;
+            padding: 12px 10px !important;
+            font-size: 0.92rem !important;
+            animation: pulse-gold 2s infinite alternate;
+            justify-content: center !important;
+        }
+
+        @keyframes pulse-gold {
+            0% { transform: scale(1); box-shadow: 0 4px 15px var(--theme-glow); }
+            100% { transform: scale(1.02); box-shadow: 0 6px 20px var(--theme-glow); }
+        }
+
+        .code-container {
+            background-color: var(--code-bg);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 18px;
+            border: 2px solid var(--gold-primary);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px dashed rgba(212, 175, 55, 0.4);
+        }
+
+        pre {
+            margin: 0;
+            direction: ltr;
+            text-align: left;
+            font-family: 'Consolas', 'Courier New', monospace;
+            color: #f7f0d4;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .code-actions-bar {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .copy-btn, .compiler-btn {
+            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-primary) 100%);
+            color: #ffffff;
+            border: 1px solid var(--gold-border);
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.82rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .compiler-btn {
+            background: linear-gradient(135deg, #1b4985 0%, #2b5797 100%);
+            border-color: #79a2e6;
+        }
+
+        .explanation-box {
+            background-color: var(--royal-card-bg);
+            padding: 22px;
+            border-radius: 12px;
+            border-right: 5px solid var(--gold-primary);
+            line-height: 2;
+            font-size: 0.96rem;
+            border: 1px solid var(--gold-border);
+            box-shadow: 0 6px 20px var(--theme-glow);
+        }
+
+        .symbols-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 10px;
+            margin: 12px 0 16px 0;
+        }
+
+        .symbol-item {
+            background: var(--royal-bg);
+            border: 1px solid var(--gold-border);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 0.88rem;
+        }
+
+        .symbol-code {
+            color: #c0392b;
+            font-family: 'Consolas', monospace;
+            font-weight: bold;
+            background: rgba(192, 57, 43, 0.08);
+            padding: 1px 6px;
+            border-radius: 4px;
+            direction: ltr;
+            display: inline-block;
+        }
+
+        .real-world-box {
+            background: var(--theme-glow);
+            border-right: 4px solid var(--gold-primary);
+            border-radius: 6px;
+            padding: 12px 15px;
+            margin: 12px 0 16px 0;
+            color: var(--text-dark);
+        }
+
+        .quiz-card {
+            background: var(--royal-card-bg);
+            border: 2px solid var(--gold-border);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 30px var(--theme-glow);
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1.5px solid var(--gold-border);
+        }
+
+        .progress-bar-container {
+            width: 100%; height: 10px;
+            background-color: var(--royal-bg);
+            border: 1px solid var(--gold-border);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-primary));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .option-btn {
+            background: var(--royal-bg);
+            border: 1.5px solid var(--gold-border);
+            padding: 12px 18px;
+            border-radius: 10px;
+            text-align: right;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 10px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-dark);
+        }
+
+        .option-btn.selected {
+            background: var(--theme-glow);
+            border-color: var(--gold-dark);
+            border-width: 2px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-primary) 100%);
+            color: #ffffff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .result-card { text-align: center; padding: 20px; }
+        .score-circle {
+            width: 140px; height: 140px;
+            border-radius: 50%;
+            background: var(--royal-card-bg);
+            border: 4px solid var(--gold-primary);
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            margin: 20px auto;
+        }
+
+        @media print {
+            body * { visibility: hidden; }
+            #certificateModalOverlay, #certificateModalOverlay * { visibility: visible; }
+            #certificateModalOverlay {
+                position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+                background: white !important; backdrop-filter: none !important;
+                display: flex !important; align-items: center; justify-content: center;
+            }
+            .certificate-card {
+                box-shadow: none !important; border: 3px solid #d4af37 !important;
+                width: 100% !important; max-width: 100% !important; padding: 15px !important; color: #2c251e !important;
+            }
+            .no-print { display: none !important; }
+        }
+
+        @media (max-width: 650px) {
+            .sidebar { width: 160px; min-width: 140px; padding: 10px 6px 25px 6px; }
+            .portal-card { padding: 30px 20px; }
+            .portal-title { font-size: 1.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. بوابة الدخول للأقسام الهندسية -->
+    <div class="portal-wrapper" id="portalWrapper">
+        <div class="portal-card">
+            <span class="portal-crown" id="portalHeaderIcon">👑🏛️</span>
+            <h1 class="portal-title">البوابة الهندسية الموحدة</h1>
+            <p class="portal-subtitle">جامعات كليات الهندسة بمحافظة حجة - لغة C++</p>
+            
+            <form id="loginForm" onsubmit="handleStudentLogin(event)">
+                <div class="form-group">
+                    <label>الجامعة الأكاديمية:</label>
+                    <select id="studentUniInput" class="form-select" required>
+                        <option value="جامعة حجة - كلية الهندسة" selected>جامعة حجة (Hajjah University) - كلية الهندسة</option>
+                        <option value="جامعة الرازي (فرع حجة) - كلية الهندسة">جامعة الرازي (Al-Razi University) - فرع حجة</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>الاسم الرباعي للطالب المهندس:</label>
+                    <input type="text" id="studentNameInput" class="form-input" placeholder="أدخل اسمك الرباعي هنا..." required>
+                </div>
+
+                <div class="form-group">
+                    <label>التخصص الهندسي:</label>
+                    <select id="studentDeptInput" class="form-select" required onchange="applySpecialtyTheme(this.value)">
+                        <option value="" disabled selected>اختر التخصص الهندسي...</option>
+                        <option value="الذكاء الاصطناعي (AI)">🧠 قسم الذكاء الاصطناعي (AI)</option>
+                        <option value="الأمن السيبراني (Cyber Security)">🛡️ قسم الأمن السيبراني (Cyber Security)</option>
+                        <option value="علوم الحاسوب (CS)">💻 قسم علوم الحاسوب (CS)</option>
+                        <option value="هندسة البرمجيات (SE)">⚙️ قسم هندسة البرمجيات (SE)</option>
+                        <option value="تقنية المعلومات (IT)">🌐 قسم تقنية المعلومات (IT)</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-portal-primary">دخول للمكتبة والاختبار 🚀</button>
+            </form>
+
+            <button type="button" class="btn-portal-admin" onclick="openAdminModal()">دخول لوحة الإشراف (سري) 🔐</button>
+        </div>
+    </div>
+
+    <!-- 2. النافذة المنبثقة للإشراف السري -->
+    <div class="modal-overlay" id="adminModalOverlay">
+        <div class="admin-card">
+            <button class="close-modal" onclick="closeAdminModal()">&times;</button>
+            <h2 style="color: var(--gold-dark); font-family: 'Amiri', serif; margin-bottom: 15px; text-align: center;">🔐 لوحة الإشراف الأكاديمي السرية</h2>
+            
+            <div id="adminAuthSection">
+                <p style="color: var(--text-dark); font-size: 0.9rem; margin-bottom: 15px; text-align: center;">المرجو أدخال كلمة السر الخاصة بالمشرفين للوصول للسجلات:</p>
+                <input type="password" id="adminPasswordInput" class="form-input" placeholder="كلمة السر السرية..." style="margin-bottom: 15px;">
+                <button class="btn-portal-primary" onclick="verifyAdminPassword()">التحقق والدخول</button>
+                <div id="adminAuthError" style="color: var(--error-color); font-size: 0.88rem; margin-top: 10px; text-align: center; font-weight: bold; display: none;">❌ كلمة السر غير صحيحة!</div>
+            </div>
+
+            <div id="adminDashboardSection" style="display: none;">
+                <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                    <button class="btn-portal-primary" id="tabLogsBtn" onclick="switchAdminTab('logs')" style="padding: 8px; font-size: 0.85rem; margin-top:0;">📊 سجل الدرجات</button>
+                    <button class="btn-portal-admin" id="tabVisitorsBtn" onclick="switchAdminTab('visitors')" style="padding: 8px; font-size: 0.85rem; margin-top:0;">👥 سجل الزوار والدخول</button>
+                </div>
+
+                <div id="adminLogsTabContent">
+                    <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                        <input type="text" id="adminSearchInput" class="form-input" placeholder="🔍 ابحث باسم الطالب..." oninput="filterAdminLogs()" style="padding: 8px 12px; font-size: 0.85rem;">
+                        <select id="adminDeptFilter" class="form-select" onchange="filterAdminLogs()" style="padding: 8px; font-size: 0.85rem; width: 140px;">
+                            <option value="">كل التخصصات</option>
+                            <option value="الذكاء الاصطناعي">الذكاء الاصطناعي</option>
+                            <option value="الأمن السيبراني">الأمن السيبراني</option>
+                            <option value="علوم الحاسوب">علوم الحاسوب</option>
+                            <option value="هندسة البرمجيات">هندسة البرمجيات</option>
+                            <option value="تقنية المعلومات">تقنية المعلومات</option>
+                        </select>
+                    </div>
+                    <h3 style="color: var(--gold-dark); font-size: 1.05rem; margin-bottom: 10px; border-bottom: 1px solid var(--gold-border); padding-bottom: 5px;">📊 سجل درجات الطلاب المنجزين:</h3>
+                    <div id="adminLogsContainer" style="max-height: 230px; overflow-y: auto; background: var(--royal-bg); border: 1px solid var(--gold-border); padding: 10px; border-radius: 8px; font-size: 0.86rem; color: var(--text-dark);">
+                        <!-- نتائج الطلاب -->
+                    </div>
+                    <button class="btn-portal-admin" onclick="clearAdminLogs()" style="margin-top: 12px; background: rgba(192, 57, 43, 0.1); color: var(--error-color); border-color: var(--error-color);">مسح كافة السجلات 🗑️</button>
+                </div>
+
+                <div id="adminVisitorsTabContent" style="display: none;">
+                    <h3 style="color: var(--gold-dark); font-size: 1.05rem; margin-bottom: 10px; border-bottom: 1px solid var(--gold-border); padding-bottom: 5px;">👥 سجل أسماء من دخل إلى المنصة (مجرد الدخول):</h3>
+                    <div id="adminVisitorsContainer" style="max-height: 230px; overflow-y: auto; background: var(--royal-bg); border: 1px solid var(--gold-border); padding: 10px; border-radius: 8px; font-size: 0.86rem; color: var(--text-dark);">
+                        <!-- زوار المنصة -->
+                    </div>
+                    <button class="btn-portal-admin" onclick="clearAdminVisitors()" style="margin-top: 12px; background: rgba(192, 57, 43, 0.1); color: var(--error-color); border-color: var(--error-color);">مسح سجل الزوار 🗑️</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. نافذة الشهادة الملكية (مع شعار جامعة حجة الأصلي المدمج بالكامل 100%) -->
+    <div class="modal-overlay" id="certificateModalOverlay">
+        <div class="certificate-card" id="certificateCardContent">
+            <button class="close-modal no-print" onclick="closeCertificateModal()">&times;</button>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #d4af37; padding-bottom: 10px; margin-bottom: 12px; text-align: right;">
+                <div style="font-size: 0.82rem; line-height: 1.6; color: #aa771c; font-weight: bold;">
+                    <div>الجمهورية اليمنية</div>
+                    <div>وزارة التربية والتعليم</div>
+                    <div>محافظة حجة</div>
+                    <div id="certUniHeaderTitle">جامعة حجة - كلية الهندسة</div>
+                </div>
+                <div id="certLogoContainer">
+                    <!-- شعار جامعة حجة الحقيقي والدقيق المدمج كـ Vector / SVG عالي الجودة -->
+                    <svg width="80" height="90" viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));">
+                        <path d="M 100 5 C 160 5 195 30 195 70 C 195 150 140 210 100 225 C 60 210 5 150 5 70 C 5 30 40 5 100 5 Z" fill="#d4af37" stroke="#aa771c" stroke-width="4"/>
+                        <path d="M 100 12 C 152 12 185 35 185 72 C 185 142 135 198 100 212 C 65 198 15 142 15 72 C 15 35 48 12 100 12 Z" fill="#ffffff"/>
+                        <path d="M 100 20 C 145 20 175 40 175 75 C 175 135 130 188 100 200 C 70 188 25 135 25 75 C 25 40 55 20 100 20 Z" fill="#1b4985"/>
+                        <path d="M 50 120 C 75 105 95 110 100 115 C 105 110 125 105 150 120 L 150 135 C 125 120 105 125 100 130 C 95 125 75 120 50 135 Z" fill="#ffffff" stroke="#000" stroke-width="1.5"/>
+                        <circle cx="100" cy="65" r="18" fill="#d4af37"/>
+                        <ellipse cx="100" cy="65" rx="22" ry="8" fill="none" stroke="#ffffff" stroke-width="2" transform="rotate(30 100 65)"/>
+                        <ellipse cx="100" cy="65" rx="22" ry="8" fill="none" stroke="#ffffff" stroke-width="2" transform="rotate(-30 100 65)"/>
+                        <rect x="40" y="150" width="120" height="30" rx="5" fill="#d4af37"/>
+                        <text x="100" y="171" font-family="'Cairo', sans-serif" font-weight="bold" font-size="16" fill="#000000" text-anchor="middle">جامعة حجة</text>
+                    </svg>
+                </div>
+            </div>
+
+            <h2 style="font-family: 'Amiri', serif; font-size: 1.55rem; background: linear-gradient(135deg, #8a6218 0%, #d4af37 50%, #aa771c 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 3px;">شهادة تقدير وتفوق أكاديمي ملكية</h2>
+            <p style="color: #7f6c58; font-size: 0.8rem; margin-bottom: 12px;">المكتبة البرمجية الملكية لتعلم لغة C++</p>
+            
+            <p style="color: #3d3122; font-size: 0.94rem; line-height: 1.7; margin-bottom: 8px;">
+                تمنح هذه الشهادة الفاخرة بكل فخر واعتزاز إلى <b>الطالب المهندس</b>:<br>
+                <b id="certStudentName" style="font-family: 'Amiri', serif; font-size: 1.35rem; color: #aa771c; display: block; margin: 4px 0;"></b>
+                المقيد في التخصص الأكاديمي: <b id="certStudentDept" style="color: #2c251e;"></b>
+            </p>
+
+            <p style="color: #3d3122; font-size: 0.88rem; line-height: 1.6; margin-bottom: 10px;">
+                وذلك لإنجازه المتميز واجتيازه بنجاح تام لـ <b id="certQuizType" style="color: #aa771c;"></b> محرزاً النتيجة المشرفة:
+            </p>
+
+            <div style="background: rgba(212, 175, 55, 0.1); border: 2px solid #d4af37; border-radius: 12px; padding: 6px 16px; display: inline-block; margin-bottom: 12px;">
+                <div id="certScore" style="font-size: 1.8rem; font-weight: bold; color: #aa771c;"></div>
+                <div style="font-size: 0.75rem; color: #7f6c58;">من 100 درجة (تقدير ممتاز مع مرتبة الشرف)</div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px; border-top: 1.5px dashed #e6c875; padding-top: 8px; font-size: 0.8rem; flex-wrap: wrap; gap: 8px; text-align: right; color: #2c251e;">
+                <div><b>👑 إشراف أكاديمي:</b> د. هيثم حمزة</div>
+                <div><b>📅 تاريخ الإصدار:</b> <span id="certDate"></span></div>
+                <div><b>✨ إعداد الطالب:</b> يوسف وليد المروني</div>
+            </div>
+
+            <div style="margin-top: 14px; display: flex; gap: 8px; justify-content: center;" class="no-print">
+                <button class="nav-btn" onclick="exportCertAsImage()" style="background: linear-gradient(135deg, #27ae60, #2ecc71); padding: 9px 16px; font-size: 0.85rem;">🖼️ حفظ كصورة (PNG)</button>
+                <button class="nav-btn" onclick="window.print()" style="padding: 9px 16px; font-size: 0.85rem;">🖨️ طباعة (PDF)</button>
+                <button class="nav-btn" onclick="closeCertificateModal()" style="background: #7f6c58; padding: 9px 16px; font-size: 0.85rem;">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. الواجهة الرئيسية لمشروع حجة الهندسي -->
+    <div class="main-app-container" id="mainAppContainer">
+        <div class="main-content">
+            <div class="royal-banner">
+                <div>
+                    <span style="font-size: 1.3rem;" id="bannerDeptIcon">👑🧠</span>
+                    <h1 class="gold-title-large" id="mainBannerTitle">المكتبة البرمجية الهندسية بلغة C++</h1>
+                </div>
+                
+                <div class="author-card">
+                    <button onclick="toggleDarkMode()" class="copy-btn" id="darkModeBtn" style="background: var(--royal-bg); color: var(--text-dark); border: 1px solid var(--gold-border);">🌙 المظهر الداكن</button>
+                    <div class="author-name">✨ إعداد الطالب / يوسف وليد المروني ✨</div>
+                    <div class="supervisor-name">👑 إشراف: د. هيثم حمزة 👑</div>
+                </div>
+            </div>
+
+            <div class="student-badge-bar">
+                <div>🏛️ الجامعة: <b id="displayStudentUni" style="color: var(--gold-dark);"></b></div>
+                <div>👤 المهندس: <b id="displayStudentName" style="color: var(--gold-dark);"></b> <span class="rank-badge" id="studentRankBadge">مُبتدئ 🌟</span></div>
+                <div>🎓 التخصص: <b id="displayStudentDept" style="color: var(--gold-dark);"></b></div>
+                <button onclick="logoutStudent()" style="background: none; border: none; color: var(--error-color); font-size: 0.85rem; font-weight: bold; cursor: pointer;">تبديل الحساب 🔄</button>
+            </div>
+
+            <div id="contentArea">
+                <div class="explanation-box" id="welcomeMsg" style="text-align: center;">
+                    👑 <b>أهلاً بك الطالب المهندس <span id="welcomeStudentName"></span> في المرجع الهندسي الشامل لتعلم C++ مع التفكيك الدقيق لكل رمز برمجي.</b><br>
+                    <small style="color: var(--gold-dark); margin-top: 10px; display: inline-block;">👈 اختر درساً من القائمة الجانبية لعرض الكود والشرح المفصل، أو ابدأ "الاختبار النصفي المتقدم" و"الاختبار النهائي".</small>
+                </div>
+                
+                <div id="lessonContent" style="display: none;">
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span style="color: var(--gold-light); font-weight: bold;">👑 C++ Source Code</span>
+                            <div class="code-actions-bar">
+                                <a href="https://www.onlinegdb.com/online_c++_compiler" target="_blank" class="compiler-btn">🌐 تجربة الكود (OnlineGDB)</a>
+                                <button class="copy-btn" onclick="copyCode()">✨ نسخ الكود</button>
+                            </div>
+                        </div>
+                        <pre><code id="codeBlock"></code></pre>
+                    </div>
+                    <div class="explanation-box" id="explanationBlock"></div>
+                </div>
+
+                <div id="quizContent" style="display: none;">
+                    <div class="quiz-card" id="quizCard"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <h2>👑 الفهرس البرمجي</h2>
+            <div class="progress-tracker-box">
+                📊 نسبة إنجاز الدروس:<br>
+                <b id="progressText" style="color: var(--gold-dark);">0 من 12 (0%)</b>
+            </div>
+            <div id="buttonsList"></div>
+            <button class="lesson-btn exam-btn" onclick="startQuiz()">👑 الاختبار النهائي المتجدد (50 سؤال)</button>
+        </div>
+    </div>
+
+    <script>
+        const SECRET_ADMIN_PASS = "yousef781325909waw";
+        let currentStudent = { name: "", dept: "", uni: "" };
+        let viewedLessons = JSON.parse(localStorage.getItem('royal_viewed_lessons') || '{}');
+
+        function applySpecialtyTheme(deptName) {
+            document.body.classList.remove('theme-ai', 'theme-cyber');
+            if (deptName.includes("الذكاء الاصطناعي")) {
+                document.body.classList.add('theme-ai');
+                document.getElementById('portalHeaderIcon').textContent = "🧠🤖";
+            } else if (deptName.includes("الأمن السيبراني")) {
+                document.body.classList.add('theme-cyber');
+                document.getElementById('portalHeaderIcon').textContent = "🛡️🔐";
+            } else {
+                document.getElementById('portalHeaderIcon').textContent = "👑🏛️";
+            }
+        }
+
+        function playAudioFeedback(type) {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                if(type === 'success') {
+                    osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+                    osc.frequency.setValueAtTime(880, ctx.currentTime + 0.12);
+                    gain.gain.setValueAtTime(0.08, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+                    osc.start(); osc.stop(ctx.currentTime + 0.4);
+                } else {
+                    osc.frequency.setValueAtTime(440, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.04, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+                    osc.start(); osc.stop(ctx.currentTime + 0.08);
+                }
+            } catch(e) {}
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            document.getElementById('darkModeBtn').textContent = isDark ? '☀️ المظهر العاجي' : '🌙 المظهر الداكن';
+            localStorage.setItem('royal_dark_mode', isDark);
+        }
+
+        if(localStorage.getItem('royal_dark_mode') === 'true') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('darkModeBtn').textContent = '☀️ المظهر العاجي';
+        }
+
+        const lessons = {
+            "lesson1": {
+                title: "1. الهيكل الأساسي",
+                code: `#include <iostream>\nusing namespace std;\n\nint main() {\n    // هنا يكتب الكود البرمجي الرئيسي\n    return 0;\n}`,
+                explanation: `<h3>📜 الشرح المفصل والتفكيك الملكي المعمق للهيكل الأساسي:</h3>
+                    <div class="real-world-box">💡 <b>أمثلة واضحة من الواقع الهندسي:</b>
+                    <br>• <b>تأسيس المبنى المعماري:</b> وضع الخرسانة والأساسات وإدخال شبكات المياه والكهرباء قبل بناء الغرف؛ تماماً كاستدعاء المكتبات البرمجية الأساسية.
+                    <br>• <b>مفتاح التشغيل الرئيسي:</b> دالة <code>main()</code> هي مفتاح التشغيل الإجباري والوحيد الذي يبدأ المعالج بتنفيذه في الذاكرة العشوائية (RAM).</div>
+
+                    <h4>🔍 التشريح التفصيلي الدقيق لرموز الهيكل البرمجي:</h4>
+                    <div class="symbols-grid">
+                        <div class="symbol-item"><span class="symbol-code">#</span> <b>المُعالج التمهيدي (Preprocessor):</b> رمز توجيهي يخبر المترجم (Compiler) بتنفيذ أوامر التحضير وجلب المكتبات قبل البدء الفعلي بترجمة الشيفرة إلى لغة الآلة (Machine Code).</div>
+                        <div class="symbol-item"><span class="symbol-code">include</span> <b>أمر الجلب والاستدعاء:</b> تعليمة برمجية تطلب دمج محتوى ملف ترويسة خارجي (Header File) داخل الكود الحالي لتوفير الدوال الجاهزة.</div>
+                        <div class="symbol-item"><span class="symbol-code">&lt; &gt;</span> <b>أقواس مسار المكتبات:</b> رموز تحدد للمترجم البحث عن الملف المطلوب ضمن مسارات المجلدات القياسية للنظام الافتراضي.</div>
+                        <div class="symbol-item"><span class="symbol-code">iostream</span> <b>مكتبة التدفق القياسية:</b> اختصار لـ Input/Output Stream، وهي المكتبة المسؤولة عن معالجة عمليات الإدخال عبر لوحة المفاتيح والإخراج عبر الشاشة.</div>
+                        <div class="symbol-item"><span class="symbol-code">using</span> <b>أمر إدارة النطاق:</b> تعليمة تستخدم لتوجيه المترجم لاعتماد مجال أسماء محدد وتجنب تكرار كتابة البادئات الطويلة.</div>
+                        <div class="symbol-item"><span class="symbol-code">namespace</span> <b>نطاق الأسماء:</b> حزمة برمجية تعزل الكائنات والدوال عن بعضها لمنع حدوث تضارب في الأسماء (Name Collisions).</div>
+                        <div class="symbol-item"><span class="symbol-code">std</span> <b>النطاق القياسي (Standard):</b> الاختصار الرسمي لنطاق المكتبة القياسية للغة C++ والذي يحتوي على كافة الكائنات الأساسية مثل cout وcin.</div>
+                        <div class="symbol-item"><span class="symbol-code">;</span> <b>الفاصلة المنقوطة (Terminator):</b> الرمز الأهم الذي يحدد نهاية الجملة البرمجية تماماً مثل النقطة في نهاية الجملة الإنشائية، وغيابها يسبب خطأ تجميع فوري.</div>
+                        <div class="symbol-item"><span class="symbol-code">int</span> <b>نوع بيانات الإرجاع (Integer):</b> كلمة محجوزة تحدد أن الدالة ستُعيد وتنتج عدداً صحيحاً كنهاية لعملياتها وتشغيلها.</div>
+                        <div class="symbol-item"><span class="symbol-code">main()</span> <b>الدالة الرئيسية الإلزامية:</b> نقطة البداية المحورية والوحيدة التي يبدأ منها تنفيذ المعالج لأي برنامج C++ مستقل.</div>
+                        <div class="symbol-item"><span class="symbol-code">{ }</span> <b>أقواس الحصر والنطاق (Braces):</b> تحدد بدقة بالغة بداية ونهاية كتلة التعليمات البرمجية أو جسم الدالة (Function Body).</div>
+                        <div class="symbol-item"><span class="symbol-code">//</span> <b>علامة التعليق الأحادي:</b> توجيه للمترجم بتجاهل السطر بالكامل، وتستخدم حصراً لشرح الكود وتوثيقه للمبرمجين البشريين.</div>
+                        <div class="symbol-item"><span class="symbol-code">return</span> <b>أمر الإرجاع والخروج:</b> تعليمة تنهي تنفيذ الدالة الحالية وتعيد قيمة عددية محددة لنظام التشغيل المؤكد لسير العمل.</div>
+                        <div class="symbol-item"><span class="symbol-code">0</span> <b>رمز النجاح البرمجي:</b> القيمة القياسية الصفرية التي تؤكد لنظام التشغيل أن البرنامج انتهى بنجاح تام وبدون أي أخطاء استثنائية.</div>
+                    </div>`
+            },
+            "lesson2": {
+                title: "2. جملة الطباعة cout",
+                code: `#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << "مرحباً بكم في قسم الذكاء الاصطناعي!" << endl;\n    cout << "C++ Programming is Easy." << endl;\n    return 0;\n}`,
+                explanation: `<h3>📜 الشرح المفصل والتفكيك الملكي المعمق لعمليات الإخراج:</h3>
+                    <div class="real-world-box">💡 <b>أمثلة واضحة من الواقع التقني:</b>
+                    <br>• <b>لوحة رحلات المطار الإلكترونية:</b> تتدفق البيانات والمعلومات النصية منها لتظهر للمسافرين على الشاشات؛ وبنفس الطريقة يعمل كائن <code>cout</code> على دفع البيانات وصبها على شاشة العرض السوداء.</div>
+
+                    <h4>🔍 التشريح التفصيلي الدقيق لرموز أمر الطباعة والتدفق:</h4>
+                    <div class="symbols-grid">
+                        <div class="symbol-item"><span class="symbol-code">cout</span> <b>كائن الإخراج القياسي:</b> اختصار لـ Character Output، وهو كائن برمجي مخصص لتدفق البيانات وإرسالها إلى شاشة الكونسول الافتراضية.</div>
+                        <div class="symbol-item"><span class="symbol-code">&lt;&lt;</span> <b>معامل التدفق والإدراج (Insertion Operator):</b> سهمان متوجان لليسار يقومان بتوجيه البيانات وسحبها لتدفق باتجاه كائن الإخراج لتنفيذ أمر العرض.</div>
+                        <div class="symbol-item"><span class="symbol-code">" "</span> <b>علامتا التنصيص المزدوجة:</b> حاجز بصري وبرمجي يخبر المترجم بأن ما بداخله هو سلسلة نصية حرفية (String Literal) يجب طباعتها كما هي تماماً.</div>
+                        <div class="symbol-item"><span class="symbol-code">endl</span> <b>أمر إنهاء السطر (End Line):</b> تعليمة متتقدمة تقوم بإنزال مؤشر الكتابة إلى سطر جديد في الشاشة مع إجبار المعالج على تفريغ الذاكرة المؤقتة (Buffer Flush) فوراً.</div>
+                    </div>`
+            },
+            "lesson3": {
+                title: "3. المتغيرات والداتا",
+                code: `#include <iostream>\nusing namespace std;\n\nint main() {\n    int age = 20;            // عدد صحيح\n    double gpa = 3.85;       // عدد عشري بفرزات\n    char grade = 'A';        // حرف واحد فقط\n    string name = "يوسف";    // نص كامل\n    bool isPassed = true;    // قيمة منطقية (صح أم خطأ)\n\n    cout << "الاسم: " << name << endl;\n    cout << "العمر: " << age << " سنة" << endl;\n    cout << "المعدل: " << gpa << endl;\n    return 0;\n}`,
+                explanation: `<h3>📜 الشرح المفصل والتفكيك الملكي المعمق لأنظمة المتغيرات والذاكرة:</h3>
+                    <div class="real-world-box">💡 <b>أمثلة من الواقع الإداري والمادي:</b> تصنيف الأغراض والمستندات في أدراج وخزانات مكتبية مخصصة بحسب حجمها، نوعها، وطبيعة محتواها لضمان سرعة الوصول إليها.</div>
+
+                    <h4>🔍 التشريح التفصيلي الدقيق لأنواع البيانات وحجز الذاكرة:</h4>
+                    <div class="symbols-grid">
+                        <div class="symbol-item"><span class="symbol-code">int</span> <b>نوع الأعداد الصحيحة (Integer):</b> يحجز مساحة 4 بايتات في الذاكرة العشوائية لتخزين الأرقام الكاملة الخالية من الكسور والفاصلة.</div>
+                        <div class="symbol-item"><span class="symbol-code">double</span> <b>نوع الكسور الدقيقة (Double):</b> يحجز 8 بايتات لتخزين الأرقام العشرية الكبيرة ذات الفاصلة العائمة وبدرجة دقة عالية جداً.</div>
+                        <div class="symbol-item"><span class="symbol-code">char</span> <b>نوع الأحرف المفردة (Character):</b> يحجز بايت واحد (1 Byte) لتخزين حرف أبجدي أو رمز مفرد استناداً إلى جدول ترميز الأسكي (ASCII Table).</div>
+                        <div class="symbol-item"><span class="symbol-code">string</span> <b>نوع السلاسل النصية:</b> كائن متقدم وعالي المستوى مصمم خصيصاً لتخزين الجمل الطويلة والأسماء المدمجة بكل مرونة.</div>
+                        <div class="symbol-item"><span class="symbol-code">bool</span> <b>النوع المنطقي (Boolean):</b> يحجز بايت واحد لتخزين قيمتين ثنائيتين فقط إما صحيحة تماماً (1 / true) أو خاطئة (0 / false).</div>
+                        <div class="symbol-item"><span class="symbol-code">=</span> <b>معامل الإسناد والتخصيص (Assignment):</b> رمز يأخذ القيمة الموجودة في الطرف الأيمن ويقوم بنسخها وتخزينها داخل المتغير في الطرف الأيسر.</div>
+                        <div class="symbol-item"><span class="symbol-code">' '</span> <b>علامتا التنصيص المفردتان:</b> رموز حصرية لتحديد وحصر الحرف المفرد المنفرد لمتغيرات النوع char حصراً وبدون تداخل.</div>
+                    </div>`
+            },
+            "lesson4": {
+                title: "4. استقبال البيانات cin",
+                code: `#include <iostream>\nusing namespace std;\n\nint main() {\n    int number;\n    cout << "أدخل رقماً صحيحاً: ";\n    cin >> number; // قراءة الرقم من المستخدم\n    \n    cout << "الرقم الذي أدخلته هو: " << number << endl;\n    return 0;\n}`,
+                explanation: `<h3>📜 الشرح المفصل والتفكيك الملكي المعمق لعمليات الإدخال والتفاعل:</h3>
+                    <div class="real-world-box">💡 <b>أمثلة من الواقع:</b> بوابة تحصيل الرسوم أو موظف الاستقبال الذي ينتظر إدخال البيانات ومعلوماتها من العميل لتسجيلها في النظام.</div>
+                    <h4>🔍 التشريح التفصيلي الدقيق لأوامر الاستقبال والتدفق العكسي:</h4>
+                    <div class="symbols-grid">
+                        <div class="symbol-item"><span class="symbol-code">cin</span> <b>كائن الإدخال القياسي:</b> اختصار لـ Character Input، وظيفته توقيف البرنامج مؤقتاً بانتظار كتابة المستخدم للبيانات عبر لوحة المفاتيح.</div>
+                        <div class="symbol-item"><span class="symbol-code">&gt;&gt;</span> <b>معامل الاستخراج والإرسال (Extraction Operator):</b> سهمان متجهان لليمين لسحب البيانات المدخلة من تدفق الكيبورد وتخزينها داخل المتغير المستهدف.</div>
+                    </div>`
+            },
+            "lesson5": {
+                title: "5. العمليات الحسابية",
+                code: `#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 10, b = 3;\n    \n    cout << "الجمع: " << (a + b) << endl;\n    cout << "الطرح: " << (a - b) << endl;\n    cout << "الضرب: " << (a * b) << endl;\n    cout << "القسمة الصحيحة: " << (a / b) << endl;\n    cout << "باقي القسمة (Modulus): " << (a % b) << endl;\n    return 0;\n}`,
+                explanation: `<h3>📜 الشرح المفصل والتفكيك الملكي المعمق للعمليات الحسابية والرياضية:</h3>
+                    <div class="real-world-box">💡 <b>أمثلة من الواقع:</b> آلة حاسبة رقمية متطورة تقوم بمعالجة المدخلات العددية وإصدار النتائج الفورية.</div>
+                    <h4>🔍 التشريح التفصيلي الدقيق لمعاملات الحساب والمنطق الرياضي:</h4>
+                    <div class="symbols-grid">
+                        <div class="symbol-item"><span class="symbol-code">+</span> <b>معامل الجمع الرياضي:</b> دمج القيم والأعداد وإيجاد المجموع الكلي لها.</div>
+                        <div class="symbol-item"><span class="symbol-code">-</span> <b>معامل الطرح والخصم:</b> إيجاد الفارق العددي بين القيم المختلفة.</div>
+                        <div class="symbol-item"><span class="symbol-code">*</span> <b>معامل الضرب المضاعف:</b> مضاعفة القيم الحسابية لمرات محددة.</div>
+                        <div class="symbol-item"><span class="symbol-code">/</span> <b>معامل القسمة الصحيحة والعشرية:</b> توزيع القيم وتخفيضها مع إهمال الكسور عند التعامل مع الأعداد الصحيحة (int).</div>
+                        <div class="symbol-item"><span class="symbol-code">%</span> <b>معامل باقي القسمة (Modulus):</b> استخراج المتبقي الصحيح الصافي من عملية القسمة، وله تطبيقات حاسوبية هائلة كمعرفة الأعداد الزوجية والفردية.</div>
+                    </div>`
+            },
+            "lesson6": {
+                title: "6. الشروط if - else",
+                code: `#include <iostream>\nusing namespace std;\n\nint main() {\n    int mark = 85;\n    \n    if (mark >= 50) {\n        cout << "مبروك! أنت ناجح ✨" << endl;\n    } else {\n        cout << "للأسف أنت راسب ❌" << endl;\n    }\n    return 0;\n}`,
+                explanation: `<h3>📜 الشرح المفصل والتفكيك الملكي المعمق لهياكل الاختيار والتحكم الشرطي:</h3>
+                    <div class="real-world-box">💡 <b>أمثلة من الواقع:</b> بوابات المرور الذكية التي تفتح تلقائياً إذا كانت الشروط مطابقة وتغلق في حال العكس.</div>
+                    <h4>🔍 التشريح التفصيلي الدقيق لأوامر المقارنة والشروط المنطقية:</h4>
+                    <div class="symbols-grid">
+                        <div class="symbol-item"><span class="symbol-code">if</span> <b>جملة الشرط الرئيسية:</b> تعليمة تفحص شرطاً معبداً، فإذا كانت نتيجته (True) يتم تنفيذ الكتلة البرمجية التابعة له حصراً.</div>
+                        <div class="symbol-item"><span class="symbol-code">else</span> <b>المسار البديل:</b> كتلة تنفيذية احتياطية تعمل تلقائياً في حال فشل شرط الـ if الأساسي وتقييمه بـ (False).</div>
+                        <div class="symbol-item"><span class="symbol-code">&gt;=</span> <b>معامل الأكبر أو يساوي:</b> فحص ما إذا كان الطرف الأيمن يفوق أو يطابق الطرف الأيسر.</div>
+                        <div class="symbol-item"><span class="symbol-code">==</span> <b>معامل التساوي التام:</b> مطابقة القيم للتحقق من تطابقها المطلق (وليس التخصيص).</div>
+                        <div class="symbol-item"><span class="symbol-code">!=</span> <b>معامل التباين وعدم التساوي:</b> فحص ما إذا كانت القيمتان مختلفتين عن بعضهما تماماً.</div>
+                    </div>`
+            },
+            "lesson7": {
+                title: "7. الخيارات switch",
+                code: `#include <iostream>\nusing namespace std;\n\nint main() {\n    int option = 2;\n    \n    switch(option) {\n        case 1:\n            cout << "اخترت الخيار الأول" << endl;\n            break;\n        case 2:\n            cout << "اخترت الخيار الثاني" << endl;\n            break;\n        default:\n            cout << "خيار غير معروف" << endl;\n    }\n    return 0;\n}`,
+                explanation: `<h3>📜 الشرح المفصل والتفكيك الملكي المعمق لهياكل القوائم المتعددة:</h3>
+                    <div class="real-world-box">💡 <b>أمثلة من الواقع:</b> أزرار القائمة الرئيسية لجهاز الصراف الآلي (ATM) حيث تؤدي كل زر إلى مسار مختلف ومنفصل.</div>
+                    <h4>🔍 التشريح التفصيلي الدقيق لرموز القوائم واختيار الحالات:</h4>
+                    <div class="symbols-grid">
+                        <div class="symbol-item"><span class="symbol-code">switch</span> <b>مفتاح القوائم المتعددة:</b> فحص متغير موحد ومقارنة قيمته مع عدة حالات محتملة لتوفير الكفاءة البرمجية.</div>
+                        <div class="symbol-item"><span class="symbol-code">case</span> <b>الحالة الاحتمالية:</b> نقطة مطابقة تحدد السلوك المراد تنفيذه عند تساوي المتغير مع القيمة المحددة.</div>
+                        <div class="symbol-item"><span class="symbol-code">break</span> <b>أمر القطع والهروب:</b> تعليمة توقف استمرار التنفيذ وتخرج فوراً من بنية الـ switch لمنع تداخل الحالات.</div>
+                        <div class="symbol-item"><span class="symbol-code">default</span> <b>المسار الافتراضي الشامل:</b> الخيار الاحتياطي الأخير الذي يُنفذ في حال لم تتطابق أي حالة من حالات الـ case.</div>
+                    </div>`
+            },
+            "lesson8": {
+                title: "8. التكرار for loop",
+                code: `#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int i = 1; i <= 5; i++) {\n        cout << "العداد الان: " << i << endl;\n    }\n    return 0;\n}`,
+                explanation: `<h3>📜 الشرح المفصل والتفكيك الملكي المعمق لحلقات التكرار المحددة:</h3>
+                    <div class="real-world-box">💡 <b>أمثلة من الواقع:</b> خط إنتاج مصنع يقوم بتكرار عملية تعبئة المنتجات لعدد محدد ومعلوم مسبقاً من المرات.</div>
+                    <h4>🔍 التشريح التفصيلي الدقيق لترويسة حلقة التكرار المحدد:</h4>
+                    <div class="symbols-grid">
+                        <div class="symbol-item"><span class="symbol-code">for</span> <b>حلقة التكرار المحسوبة:</b> بنية تكرارية ذكية مخصصة لتنفيذ الأوامر لعدد مرات معروف وثابت مسبقاً.</div>
+                        <div class="symbol-item"><span class="symbol-code">int i = 1</span> <b>التهيئة الابتدائية:</b> إنشاء متغير عداد محلي وبدء عدّه من نقطة بداية محددة.</div>
+                        <div class="symbol-item"><span class="symbol-code">i &lt;= 5</span> <b>شرط الاستمرارية:</b> اختبار دوري يُجرى قبل كل دورة للتأكد من وجوب استمرار التكرار.</div>
+                        <div class="symbol-item"><span class="symbol-code">i++</span> <b>خطوة التحديث والزيادة:</b> زيادة قيمة العداد بمقدار واحد صحيح تلقائياً بعد انتهاء كل شوط تكراري.</div>
+                    </div>`
+            },
+            "lesson9": {
+                title: "9. التكرار while loop",
+                code: `#include <iostream>\nusing namespace std;\n\nint main() {\n    int count = 1;\n    while (count <= 3) {\n        cout << "تكرار رقم: " << count << endl;\n        count++; // زيادة العداد\n    }\n    return 0;\n}`,
+                explanation: `<h3>📜 الشرح المفصل والتفكيك الملكي المعمق لحلقات التكرار الشرطية:</h3>
+                    <div class="real-world-box">💡 <b>أمثلة من الواقع:</b> مضخة مياه تستمر في العمل طالما أن مستوى الخزان لم يمتلئ بعد.</div>
+                    <h4>🔍 التشريح التفصيلي الدقيق لرموز حلقة التكرار المرن:</h4>
+                    <div class="symbols-grid">
+                        <div class="symbol-item"><span class="symbol-code">while</span> <b>حلقة التكرار الشرطي:</b> حلقة مستمرة تتفقد الشرط أولاً وتستمر في التكرار طالما أن النتيجة بقيت صائبة (True).</div>
+                        <div class="symbol-item"><span class="symbol-code">count++</span> <b>آلية التحديث الحازمة:</b> السطر البرمجي الحاسم الذي يمنع الوقوع في فخ الحلقة اللانهائية (Infinite Loop).</div>
+                    </div>`
+            },
+            "lesson10": {
+                title: "10. المصفوفات Arrays",
+                code: `#include <iostream>\nusing namespace std;\n\nint main() {\n    int scores[3] = {90, 85, 95};\n    cout << "الدرجة الأولى: " << scores[0] << endl;\n    cout << "الدرجة الثانية: " << scores[1] << endl;\n    return 0;\n}`,
+                explanation: `<h3>📜 الشرح المفصل والتفكيك الملكي المعمق لهياكل البيانات المدمجة (المصفوفات):</h3>
+                    <div class="real-world-box">💡 <b>أمثلة من الواقع:</b> صندوق بريد مقسم إلى خانات متجاورة تحمل ترقيماً تسلسلياً لتنظيم الرسائل.</div>
+                    <h4>🔍 التشريح التفصيلي الدقيق لرموز المصفوفات وفهارسها:</h4>
+                    <div class="symbols-grid">
+                        <div class="symbol-item"><span class="symbol-code">[ ]</span> <b>أقواس الفهرسة والسعة:</b> تحدد حجم المصفوفة الكلي عند الإعلان عنها، أو تستخدم للوصول إلى عنصر معين عبر رقمه التسلسلي (Index).</div>
+                        <div class="symbol-item"><span class="symbol-code">{ }</span> <b>حاضرة القيم الابتدائية:</b> تُستخدم لتعبئة عناصر المصفوفة بالقيم المباشرة عند إنشائها.</div>
+                        <div class="symbol-item"><span class="symbol-code">0</span> <b>الفهرس الأول (Zero-based):</b> النظام المعتمد في لغات البرمجة حيث يبدأ ترقيم الخانات دائماً من الصفر وليس الواحد.</div>
+                    </div>`
+            },
+            "lesson11": {
+                title: "11. الدوال Functions",
+                code: `#include <iostream>\nusing namespace std;\n\nint add(int a, int b) {\n    return a + b;\n}\n\nint main() {\n    int result = add(5, 10);\n    cout << "مجموع الرقمين = " << result << endl;\n    return 0;\n}`,
+                explanation: `<h3>📜 الشرح المفصل والتفكيك الملكي المعمق للبرمجة الهيكلية والدوال:</h3>
+                    <div class="real-world-box">💡 <b>أمثلة من الواقع:</b> الآلة الحاسبة المصغرة في المصنع التي تؤدي مهمة محددة ومخصصة كلما تم استدعاؤها بمدخلات جديدة.</div>
+                    <h4>🔍 التشريح التفصيلي الدقيق لرموز الدوال وإدارتها:</h4>
+                    <div class="symbols-grid">
+                        <div class="symbol-item"><span class="symbol-code">add</span> <b>معرف اسم الدالة:</b> العنوان الفريد الذي يستدعي العملية برمتها من أي مكان في البرنامج.</div>
+                        <div class="symbol-item"><span class="symbol-code">(int a, int b)</span> <b>معاملات المدخلات (Parameters):</b> المتغيرات المحلية التي تستقبل البيانات الممررة للدالة لمعالجتها.</div>
+                        <div class="symbol-item"><span class="symbol-code">return a + b</span> <b>أمر الحساب والإرجاع:</b> تنفيذ العملية الحسابية وحمل الناتج النهائي لإعادته لمنطقة الاستدعاء.</div>
+                    </div>`
+            },
+            "lesson12": {
+                title: "12. المؤشرات Pointers",
+                code: `#include <iostream>\nusing namespace std;\n\nint main() {\n    int var = 20;\n    int* ptr = &var;\n    cout << "قيمة المتغير: " << var << endl;\n    cout << "عنوان المتغير في RAM: " << ptr << endl;\n    cout << "القيمة عبر المؤشر: " << *ptr << endl;\n    return 0;\n}`,
+                explanation: `<h3>📜 الشرح المفصل والتفكيك الملكي المعمق لإدارة الذاكرة والمؤشرات:</h3>
+                    <div class="real-world-box">💡 <b>أمثلة من الواقع:</b> رقم مفتاح الغرفة أو إحداثيات نظام تحديد المواقع (GPS) التي تدلك على مكان وجود الغرض بدقة بدلاً من حمله معك.</div>
+                    <h4>🔍 التشريح التفصيلي الدقيق لرموز المؤشرات والذاكرة العشوائية:</h4>
+                    <div class="symbols-grid">
+                        <div class="symbol-item"><span class="symbol-code">*</span> <b>رمز المؤشر وفك الإشارة:</b> عند استخدامها مع النوع <code>int*</code> فهي تعلن عن متغير مؤشر، وعند استخدامها بالشكل <code>*ptr</code> فهي تجلب القيمة الموجودة في العنوان المخزن.</div>
+                        <div class="symbol-item"><span class="symbol-code">&amp;</span> <b>معامل استخراج العنوان (Address-of):</b> يستخرج موقع الذاكرة الفعلي والسداسي عشر (Hexadecimal) للمتغير في شرائح الـ RAM.</div>
+                    </div>`
+            }
+        };
+
+        const midtermQuizBank = [
+            { 
+                q: "ما المخرجات الدقيقة الناتجة عن تنفيذ كود التداخل والشروط الرياضية التالي؟", 
+                code: "int a = 5, b = 2;\nint res = a + b * 3 % 4;\nif (res > 5) {\n    cout << res * 2;\n} else {\n    cout << res;\n}", 
+                options: ["14", "7", "10", "12"], 
+                correct: 0, 
+                exp: "الأولية للضرب ثم الموديلوس: 2 * 3 = 6، ثم 6 % 4 = 2. ثم الجمع: 5 + 2 = 7. وبما أن 7 > 5 ينفذ الشرط الأول: 7 * 2 = 14." 
+            },
+            { 
+                q: "ما القيمة النهائية التي سيطبعها كود جملة switch المفصلة بدون جمل قطع break؟", 
+                code: "int x = 2, y = 10;\nswitch(x) {\n    case 1: y += 5;\n    case 2: y += 10;\n    case 3: y *= 2; break;\n    default: y = 0;\n}\ncout << y;", 
+                options: ["20", "40", "30", "10"], 
+                correct: 1, 
+                exp: "يدخل ينفذ case 2 لتصبح y = 10 + 10 = 20. وبسبب غياب break ينفذ تلقائياً case 3 لتصبح y = 20 * 2 = 40 ثم يتوقف." 
+            },
+            { 
+                q: "ما هي القيمة المخزنة المطبوعة من العبارات المنطقية المتداخلة القادمة؟", 
+                code: "int p = 8, q = 3;\nbool check = (p / q == 2) && (p % q != 0);\ncout << (check ? \"YES\" : \"NO\");", 
+                options: ["YES", "NO", "1", "0"], 
+                correct: 0, 
+                exp: "p/q قسمة صحيح 8/3 تساوي 2 (True). وباقي القسمة 8%3 يساوي 2 وهو لا يساوي 0 (True). وبما أن الطرفين true يُطبع YES." 
+            },
+            { 
+                q: "ما المخرجات المباشرة الناتجة عن تتبع متغيرات الإسناد التراكمية؟", 
+                code: "int x = 4;\nint y = ++x + x++;\ncout << y << \" \" << x;", 
+                options: ["10 6", "10 5", "9 6", "8 5"], 
+                correct: 0, 
+                exp: "++x تزيد x فوراً إلى 5 وتصبح قيمتها 5. ثم x++ تستخدم القيمة 5 في الجمع فتكون y = 5 + 5 = 10، وتزيد x بعدها إلى 6." 
+            },
+            { 
+                q: "ما المخرجات التي ستحصل عليها عند تنفيذ كود cin و cout المتداخل الموضح؟", 
+                code: "int num = 15;\nif (num % 3 == 0) {\n    if (num % 5 == 0) cout << \"A\";\n    else cout << \"B\";\n}\nif (num % 2 == 0) cout << \"C\";", 
+                options: ["A", "AB", "AC", "B"], 
+                correct: 0, 
+                exp: "15 تقبل القسمة على 3، ثم تقبل القسمة على 5 فيطبع A. بينما الشرط الآخر (15%2==0) خاطئ فلا يطبع C." 
+            },
+            { 
+                q: "ما النتيجة العدديّة الناتجة عن دمج العمليات الحسابية من أنواع مختلفة؟", 
+                code: "int a = 10;\ndouble b = 4.5;\ncout << (int)(a / 4 + b);", 
+                options: ["6", "6.5", "7", "2"], 
+                correct: 0, 
+                exp: "القسمة الصحيحة 10/4 تعطي 2. يضاف إليها b (2 + 4.5 = 6.5). والتحويل الصريح (int) يلغي الكسور فتصبح 6." 
+            },
+            { 
+                q: "ما المخرجات للشرط المركب التالي الذي يجمع المعاملات المنطقية؟", 
+                code: "int m = 5, n = 10;\nbool r = !(m > 3 || n < 5) && (m == 5);\ncout << r;", 
+                options: ["0", "1", "true", "false"], 
+                correct: 0, 
+                exp: "m>3 صائبة، إذن الشرط بين الأقواس true. ونفيه !(true) يصبح false. ومعامل AND مع false يُعطي النتيجة 0." 
+            },
+            { 
+                q: "ما القيمة النهائية للمتغير val بعد تنفيذ سلسلة شروط if التالية؟", 
+                code: "int val = 100;\nif (val > 50) val -= 20;\nif (val > 70) val -= 30;\nif (val > 60) val -= 10;\ncout << val;", 
+                options: ["40", "50", "70", "80"], 
+                correct: 0, 
+                exp: "الشرط الأول: 100>50 تصبح val=80. الشرط الثاني: 80>70 تصبح val=50. الشرط الثالث: 50>60 خاطئ، فتبقى val=50 ثم يتوقف." 
+            },
+            { 
+                q: "ما الناتج المطبوع من الكود المبين لتحديد السلوك البرمجي؟", 
+                code: "int a = 1, b = 2, c = 3;\nif (a == 1) \n    if (b == 5) cout << \"X\";\n    else cout << \"Y\";\nelse cout << \"Z\";", 
+                options: ["Y", "X", "Z", "XY"], 
+                correct: 0, 
+                exp: "الشرط الأول a==1 صحيح، يدخل للشرط الداخلي b==5 وهو خاطئ، فينفذ else التابعة للشرط الداخلي ويطبع Y." 
+            },
+            { 
+                q: "ما نتيجة التحويل الصريح واستخراج الترميز الحرفي بـ char؟", 
+                code: "char ch = 'A'; // ASCII = 65\nch = ch + 2;\ncout << ch;", 
+                options: ["C", "67", "A2", "B"], 
+                correct: 0, 
+                exp: "إضافة 2 للرمز 'A' يزيد قيمته الآسكي من 65 إلى 67، والحرف المقابل للرمز 67 في جدول ASCII هو 'C'." 
+            }
+        ];
+
+        const quizMasterBank = [
+            { q: "ما هي مخرجات الكود التالي عند تشغيله؟", code: "int a = 7, b = 2;\ncout << a / b << \" \" << a % b;", options: ["3.5 1", "3 1", "3 0", "3.5 0"], correct: 1, exp: "القسمة الصحيحة 7/2 تُعطي 3 بدون كسور، وباقي القسمة 7%2 هو 1." },
+            { q: "ما النتيجة المطبوعة بعد تنفيذ كود التكرار والمجموع التالي؟", code: "int sum = 0;\nfor(int i = 1; i <= 4; i++) {\n    if(i % 2 == 0) sum += i;\n}\ncout << sum;", options: ["10", "6", "4", "2"], correct: 1, exp: "الأرقام الزوجية بين 1 و 4 هي 2 و 4. ناتج جمعهما هو 2 + 4 = 6." },
+            { q: "ما القيمة النهائية التي سيطبعها هذا الكود للمؤشر والمتغير؟", code: "int x = 10;\nint* p = &x;\n*p = 25;\ncout << x;", options: ["10", "25", "عنوان الذاكرة", "خطأ في التجميع"], correct: 1, exp: "التعديل عبر المؤشر *p = 25 يغير القيمة المباشرة المخزنة في المتغير x إلى 25." },
+            { q: "ما الناتج المطبوع من هذه الدالة المركبة؟", code: "int calc(int x) {\n    return (x > 5) ? x * 2 : x + 2;\n}\n// داخل main\ncout << calc(4) + calc(6);", options: ["18", "20", "16", "22"], correct: 0, exp: "calc(4) تُرجع (4+2 = 6). calc(6) تُرجع (6*2 = 12). المجموع: 6 + 12 = 18." },
+            { q: "كم عدد المرات التي ستطبع فيها هذه الحلقة المتداخلة حرف 'X'؟", code: "for(int i=0; i<3; i++) {\n    for(int j=0; j<2; j++) {\n        cout << \"X\";\n    }\n}", options: ["5 مرات", "6 مرات", "3 مرات", "9 مرات"], correct: 1, exp: "الحلقة الخارجية تتكرر 3 مرات والداخلية 2 مرتان. الإجمالي 3 * 2 = 6 مرات." },
+            { q: "ما المخرجات المباشرة لكود المصفوفات التالي؟", code: "int arr[4] = {3, 1, 4, 2};\ncout << arr[arr[1]];", options: ["3", "1", "4", "2"], correct: 1, exp: "arr[1] تعطي القيمة 1. وبالتالي arr[arr[1]] تُصبح arr[1] والتي قيمتها 1." },
+            { q: "ما النتيجة المطبوعة من كود التكرار التنازلي التالي؟", code: "int c = 3;\nwhile(c > 0) {\n    cout << c;\n    c--;\n}", options: ["321", "3210", "123", "0123"], correct: 0, exp: "يطبع c التي تبدأ بـ 3 ثم 2 ثم 1، ثم تتوقف الحلقة عندما تصبح c=0." },
+            { q: "ما هي مخرجات كود الشروط المنطقية المزدوجة؟", code: "bool a = true, b = false;\ncout << (a && !b) << \" \" << (a || b);", options: ["1 1", "1 0", "0 1", "0 0"], correct: 0, exp: "!(false) هي true، وبالتالي true && true تُعطي 1. و true || false تُعطي 1 أيضاً." },
+            { q: "ما قيمة المتغير num بعد الخروج التام من جملة switch المفصلة؟", code: "int k = 2, num = 10;\nswitch(k) {\n    case 1: num += 5; break;\n    case 2: num += 10;\n    case 3: num += 20; break;\n}\ncout << num;", options: ["20", "30", "40", "10"], correct: 2, exp: "ينفذ case 2 لتصبح num = 20، وبسبب عدم وجود break ينفذ case 3 فتصبح num = 20 + 20 = 40." },
+            { q: "ما القيمة المخزنة في العنصر الثالث للمصفوفة بعد تنفيذ التعديل؟", code: "int a[3] = {10, 20, 30};\na[2] = a[0] + a[1];\ncout << a[2];", options: ["30", "10", "20", "30"], correct: 3, exp: "a[2] أصبحت تساوي a[0] + a[1] أي (10 + 20 = 30)." }
+        ];
+
+        function shuffleArray(array) {
+            let shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function handleStudentLogin(event) {
+            event.preventDefault();
+            const uni = document.getElementById('studentUniInput').value;
+            const name = document.getElementById('studentNameInput').value.trim();
+            const dept = document.getElementById('studentDeptInput').value;
+
+            if (name && dept && uni) {
+                currentStudent = { name, dept, uni };
+                
+                // حفظ زيارة الطالب فور الدخول مباشرة
+                saveVisitorToStorage(name, dept, uni);
+
+                document.getElementById('displayStudentName').textContent = name;
+                document.getElementById('displayStudentDept').textContent = dept;
+                document.getElementById('displayStudentUni').textContent = uni;
+                document.getElementById('welcomeStudentName').textContent = name;
+
+                document.getElementById('certUniHeaderTitle').textContent = uni;
+
+                document.getElementById('portalWrapper').style.display = 'none';
+                document.getElementById('mainAppContainer').style.display = 'flex';
+                
+                initSidebarButtons();
+                updateProgressTracker();
+                playAudioFeedback('success');
+            }
+        }
+
+        function saveVisitorToStorage(name, dept, uni) {
+            let visitors = JSON.parse(localStorage.getItem('royal_visitors_logs') || '[]');
+            visitors.unshift({
+                name: name,
+                dept: dept,
+                uni: uni,
+                date: new Date().toLocaleString('ar-EG')
+            });
+            localStorage.setItem('royal_visitors_logs', JSON.stringify(visitors));
+        }
+
+        function logoutStudent() {
+            document.getElementById('mainAppContainer').style.display = 'none';
+            document.getElementById('portalWrapper').style.display = 'flex';
+        }
+
+        function openAdminModal() {
+            document.getElementById('adminModalOverlay').classList.add('active');
+            switchAdminTab('logs');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModalOverlay').classList.remove('active');
+        }
+
+        function switchAdminTab(tab) {
+            const logsBtn = document.getElementById('tabLogsBtn');
+            const visitorsBtn = document.getElementById('tabVisitorsBtn');
+            const logsContent = document.getElementById('adminLogsTabContent');
+            const visitorsContent = document.getElementById('adminVisitorsTabContent');
+
+            if (tab === 'logs') {
+                logsBtn.className = 'btn-portal-primary';
+                visitorsBtn.className = 'btn-portal-admin';
+                logsContent.style.display = 'block';
+                visitorsContent.style.display = 'none';
+                loadAdminLogs();
+            } else {
+                visitorsBtn.className = 'btn-portal-primary';
+                logsBtn.className = 'btn-portal-admin';
+                visitorsContent.style.display = 'block';
+                logsContent.style.display = 'none';
+                loadAdminVisitors();
+            }
+            playAudioFeedback('click');
+        }
+
+        function openCertificateModal(score, quizTypeName) {
+            document.getElementById('certStudentName').textContent = currentStudent.name;
+            document.getElementById('certStudentDept').textContent = currentStudent.dept;
+            document.getElementById('certQuizType').textContent = quizTypeName;
+            document.getElementById('certScore').textContent = score + " / 100";
+            document.getElementById('certDate').textContent = new Date().toLocaleDateString('ar-EG');
+            document.getElementById('certificateModalOverlay').classList.add('active');
+            playAudioFeedback('success');
+        }
+
+        function closeCertificateModal() {
+            document.getElementById('certificateModalOverlay').classList.remove('active');
+        }
+
+        function exportCertAsImage() {
+            const card = document.getElementById('certificateCardContent');
+            html2canvas(card, { scale: 2 }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `شهادة_${currentStudent.name}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+
+        function verifyAdminPassword() {
+            const enteredPass = document.getElementById('adminPasswordInput').value;
+            if (enteredPass === SECRET_ADMIN_PASS) {
+                document.getElementById('adminAuthSection').style.display = 'none';
+                document.getElementById('adminDashboardSection').style.display = 'block';
+                document.getElementById('adminAuthError').style.display = 'none';
+                loadAdminLogs();
+            } else {
+                document.getElementById('adminAuthError').style.display = 'block';
+                playAudioFeedback('click');
+            }
+        }
+
+        function saveStudentResultToStorage(score, correctCount, quizType = "اختبار نهائي متجدد") {
+            let logs = JSON.parse(localStorage.getItem('royal_student_logs') || '[]');
+            logs.unshift({
+                name: currentStudent.name,
+                dept: currentStudent.dept,
+                uni: currentStudent.uni,
+                score: score,
+                correct: correctCount,
+                quizType: quizType,
+                date: new Date().toLocaleString('ar-EG')
+            });
+            localStorage.setItem('royal_student_logs', JSON.stringify(logs));
+            
+            if(score >= 90) document.getElementById('studentRankBadge').textContent = "خبير أنظمة 💎";
+            else if(score >= 75) document.getElementById('studentRankBadge').textContent = "مهندس متمكن 🚀";
+            else document.getElementById('studentRankBadge').textContent = "مهندس متدرب 🌟";
+        }
+
+        function loadAdminLogs() {
+            displayLogs(JSON.parse(localStorage.getItem('royal_student_logs') || '[]'));
+        }
+
+        function displayLogs(logs) {
+            const container = document.getElementById('adminLogsContainer');
+            if (logs.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--gold-dark);">لا يوجد سجلات درجات حتى الآن.</p>';
+            } else {
+                let html = '';
+                logs.forEach((log, i) => {
+                    html += `<div style="border-bottom: 1px dashed var(--gold-border); padding: 8px 0;">
+                        <b>#${i+1} ${log.name}</b> (${log.uni} - ${log.dept}) - <span style="color: var(--gold-dark); font-weight: bold;">[${log.quizType}] الدرجة: ${log.score}/100</span>
+                        <div style="font-size: 0.75rem; color: #7f6c58;">التاريخ والوقت: ${log.date}</div>
+                    </div>`;
+                });
+                container.innerHTML = html;
+            }
+        }
+
+        function loadAdminVisitors() {
+            const container = document.getElementById('adminVisitorsContainer');
+            const visitors = JSON.parse(localStorage.getItem('royal_visitors_logs') || '[]');
+            if (visitors.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--gold-dark);">لا يوجد زوار سجلوا دخولهم حتى الآن.</p>';
+            } else {
+                let html = '';
+                visitors.forEach((vis, i) => {
+                    html += `<div style="border-bottom: 1px dashed var(--gold-border); padding: 8px 0;">
+                        <b>#${i+1} ${vis.name}</b><br>
+                        <span style="color: var(--gold-dark);">🏛️ الجامعة: ${vis.uni}</span><br>
+                        <span style="color: var(--text-dark);">🎓 التخصص: ${vis.dept}</span>
+                        <div style="font-size: 0.75rem; color: #7f6c58;">⏰ وقت الدخول للمنصة: ${vis.date}</div>
+                    </div>`;
+                });
+                container.innerHTML = html;
+            }
+        }
+
+        function clearAdminVisitors() {
+            if (confirm("هل أنت تأكد من رغبتك في مسح سجل الزوار بالكامل؟")) {
+                localStorage.removeItem('royal_visitors_logs');
+                loadAdminVisitors();
+            }
+        }
+
+        function filterAdminLogs() {
+            const query = document.getElementById('adminSearchInput').value.toLowerCase();
+            const deptFilter = document.getElementById('adminDeptFilter').value;
+            let logs = JSON.parse(localStorage.getItem('royal_student_logs') || '[]');
+            
+            let filtered = logs.filter(log => {
+                const matchName = log.name.toLowerCase().includes(query);
+                const matchDept = deptFilter === "" || log.dept.includes(deptFilter);
+                return matchName && matchDept;
+            });
+            displayLogs(filtered);
+        }
+
+        function clearAdminLogs() {
+            if (confirm("هل أنت تأكد من رغبتك في مسح كافة سجلات الدرجات للطلاب؟")) {
+                localStorage.removeItem('royal_student_logs');
+                loadAdminLogs();
+            }
+        }
+
+        function initSidebarButtons() {
+            const list = document.getElementById('buttonsList');
+            list.innerHTML = '';
+            for (const key in lessons) {
+                const btn = document.createElement('button');
+                btn.className = 'lesson-btn';
+                const isViewed = viewedLessons[key] ? ' ✔️' : '';
+                btn.innerHTML = `<span>${lessons[key].title}</span><span>${isViewed}</span>`;
+                btn.onclick = () => showLesson(key, btn);
+                list.appendChild(btn);
+
+                if (key === 'lesson7') {
+                    const midtermBtn = document.createElement('button');
+                    midtermBtn.className = 'lesson-btn exam-btn';
+                    midtermBtn.style.marginTop = '8px';
+                    midtermBtn.style.marginBottom = '8px';
+                    midtermBtn.textContent = '👑 الاختبار النصفي المتقدم (الدروس 1-7)';
+                    midtermBtn.onclick = () => startMidtermQuiz();
+                    list.appendChild(midtermBtn);
+                }
+            }
+        }
+
+        function showLesson(lessonKey, btnElement) {
+            document.querySelectorAll('.lesson-btn').forEach(b => b.classList.remove('active'));
+            if(btnElement) btnElement.classList.add('active');
+
+            viewedLessons[lessonKey] = true;
+            localStorage.setItem('royal_viewed_lessons', JSON.stringify(viewedLessons));
+            initSidebarButtons();
+            updateProgressTracker();
+            playAudioFeedback('click');
+
+            document.getElementById('welcomeMsg').style.display = 'none';
+            document.getElementById('quizContent').style.display = 'none';
+            document.getElementById('lessonContent').style.display = 'block';
+
+            document.getElementById('codeBlock').textContent = lessons[lessonKey].code;
+            document.getElementById('explanationBlock').innerHTML = lessons[lessonKey].explanation;
+        }
+
+        function updateProgressTracker() {
+            const viewedCount = Object.keys(viewedLessons).length;
+            const percentage = Math.round((viewedCount / 12) * 100);
+            document.getElementById('progressText').textContent = `${viewedCount} من 12 (${percentage}%)`;
+        }
+
+        function copyCode() {
+            navigator.clipboard.writeText(document.getElementById('codeBlock').textContent).then(() => {
+                alert("✔️ تم نسخ الكود البرمجي بنجاح!");
+                playAudioFeedback('click');
+            });
+        }
+
+        let currentQuizQuestions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let isMidtermMode = false;
+
+        function startMidtermQuiz() {
+            isMidtermMode = true;
+            document.querySelectorAll('.lesson-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('welcomeMsg').style.display = 'none';
+            document.getElementById('lessonContent').style.display = 'none';
+            document.getElementById('quizContent').style.display = 'block';
+
+            const shuffledPool = shuffleArray(midtermQuizBank);
+            currentQuizQuestions = shuffledPool.slice(0, 10);
+            
+            currentQuizQuestions = currentQuizQuestions.map(q => {
+                let opts = q.options.map((opt, idx) => ({ text: opt, isCorrect: idx === q.correct }));
+                let shuffledOpts = shuffleArray(opts);
+                return {
+                    q: q.q, code: q.code || null,
+                    options: shuffledOpts.map(o => o.text),
+                    correct: shuffledOpts.findIndex(o => o.isCorrect),
+                    exp: q.exp
+                };
+            });
+
+            currentQuestionIndex = 0;
+            userAnswers = new Array(currentQuizQuestions.length).fill(null);
+            renderQuestion();
+            playAudioFeedback('click');
+        }
+
+        function startQuiz() {
+            isMidtermMode = false;
+            document.querySelectorAll('.lesson-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('.exam-btn').classList.add('active');
+            document.getElementById('welcomeMsg').style.display = 'none';
+            document.getElementById('lessonContent').style.display = 'none';
+            document.getElementById('quizContent').style.display = 'block';
+
+            const shuffledPool = shuffleArray(quizMasterBank);
+            currentQuizQuestions = shuffledPool.slice(0, 50);
+            
+            currentQuizQuestions = currentQuizQuestions.map(q => {
+                let opts = q.options.map((opt, idx) => ({ text: opt, isCorrect: idx === q.correct }));
+                let shuffledOpts = shuffleArray(opts);
+                return {
+                    q: q.q, code: q.code || null,
+                    options: shuffledOpts.map(o => o.text),
+                    correct: shuffledOpts.findIndex(o => o.isCorrect),
+                    exp: q.exp
+                };
+            });
+
+            currentQuestionIndex = 0;
+            userAnswers = new Array(currentQuizQuestions.length).fill(null);
+            renderQuestion();
+            playAudioFeedback('click');
+        }
+
+        function renderQuestion() {
+            const q = currentQuizQuestions[currentQuestionIndex];
+            const progress = ((currentQuestionIndex + 1) / currentQuizQuestions.length) * 100;
+            const quizCard = document.getElementById('quizCard');
+
+            let codeHTML = q.code ? `<div style="background:#141210; color:#f7f0d4; padding:12px; border-radius:8px; direction:ltr; text-align:left; font-family:monospace; margin:10px 0; border-left:4px solid var(--gold-primary); overflow-x:auto;"><pre>${q.code}</pre></div>` : '';
+
+            let optsHTML = '';
+            q.options.forEach((opt, idx) => {
+                const selected = userAnswers[currentQuestionIndex] === idx ? 'selected' : '';
+                optsHTML += `<button class="option-btn ${selected}" onclick="selectOption(${idx})"><b>${['أ','ب','ج','د'][idx]} - </b> ${opt}</button>`;
+            });
+
+            const quizLabel = isMidtermMode ? "الاختبار النصفي المتقدم (الدروس 1-7)" : "الاختبار النهائي المتجدد (50 سؤال)";
+            const gradeNote = isMidtermMode ? "(10 درجات لكل سؤال - المجموع 100)" : "(درجتان لكل سؤال - المجموع 100)";
+
+            quizCard.innerHTML = `
+                <div class="quiz-header">
+                    <span style="color: var(--gold-dark); font-weight: bold;">👑 ${quizLabel} - السؤال ${currentQuestionIndex + 1} من ${currentQuizQuestions.length}</span>
+                    <span style="font-size:0.85rem; color:var(--gold-dark); font-weight:bold;">${gradeNote}</span>
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar-fill" style="width:${progress}%;"></div></div>
+                <div style="font-size:1.1rem; font-weight:bold; margin-bottom:15px;">${q.q}</div>
+                ${codeHTML}
+                <div>${optsHTML}</div>
+                <div style="display:flex; justify-content:space-between; margin-top:22px;">
+                    <button class="nav-btn" onclick="prevQuestion()" ${currentQuestionIndex === 0 ? 'disabled' : ''}>← السؤال السابق</button>
+                    ${currentQuestionIndex === currentQuizQuestions.length - 1 
+                        ? `<button class="nav-btn" style="background:var(--success-color);" onclick="finishQuiz()">✨ إنهاء الاختبار وتسليم الدرجة</button>`
+                        : `<button class="nav-btn" onclick="nextQuestion()">السؤال التالي →</button>`
+                    }
+                </div>
+            `;
+        }
+
+        function selectOption(idx) { 
+            userAnswers[currentQuestionIndex] = idx; 
+            renderQuestion(); 
+            playAudioFeedback('click');
+        }
+        function nextQuestion() { if(currentQuestionIndex < currentQuizQuestions.length-1) { currentQuestionIndex++; renderQuestion(); } }
+        function prevQuestion() { if(currentQuestionIndex > 0) { currentQuestionIndex--; renderQuestion(); } }
+
+        function finishQuiz() {
+            let correct = 0;
+            userAnswers.forEach((ans, idx) => { if(ans === currentQuizQuestions[idx].correct) correct++; });
+            
+            const quizTypeName = isMidtermMode ? "اختبار نصفي متقدم (1-7)" : "اختبار نهائي (50س)";
+            const multiplier = isMidtermMode ? 10 : 2;
+            const score = Math.round(correct * multiplier);
+
+            saveStudentResultToStorage(score, correct, quizTypeName);
+            playAudioFeedback('success');
+
+            let reviewHTML = "";
+            currentQuizQuestions.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const isCorrect = userAns === q.correct;
+                const userAnsText = userAns !== null ? q.options[userAns] : 'لم يتم الإجابة';
+                const correctAnsText = q.options[q.correct];
+
+                reviewHTML += `
+                    <div style="background:var(--royal-bg); border:1px solid var(--gold-border); border-right:5px solid ${isCorrect ? 'var(--success-color)' : 'var(--error-color)'}; border-radius:8px; padding:12px; margin-bottom:10px; text-align:right; font-size:0.9rem;">
+                        <div style="font-weight:bold; margin-bottom:4px;">س${idx + 1}: ${q.q}</div>
+                        ${q.code ? `<div style="background:#141210; color:#f7f0d4; padding:8px; border-radius:4px; font-family:monospace; direction:ltr; text-align:left; font-size:0.82rem; margin:6px 0;"><pre>${q.code}</pre></div>` : ''}
+                        <div>إجابتك: <span style="color:${isCorrect ? 'var(--success-color)' : 'var(--error-color)'}; font-weight:bold;">${userAnsText}</span></div>
+                        ${!isCorrect ? `<div>الإجابة الصحيحة: <span style="color:var(--success-color); font-weight:bold;">${correctAnsText}</span></div>` : ''}
+                        <div style="font-size:0.82rem; color:var(--text-dark); margin-top:4px; opacity:0.8;">💡 الشرح: ${q.exp}</div>
+                    </div>
+                `;
+            });
+
+            const retryFunction = isMidtermMode ? "startMidtermQuiz()" : "startQuiz()";
+
+            document.getElementById('quizCard').innerHTML = `
+                <div class="result-card">
+                    <h2 style="font-family:'Amiri', serif; color: var(--gold-dark); font-size:1.8rem;">🏆 نتيجة ${quizTypeName} الملكي</h2>
+                    <p style="color:var(--text-dark); margin-top:4px;">الطالب المهندس: <b>${currentStudent.name}</b> (${currentStudent.uni} - ${currentStudent.dept})</p>
+                    <div class="score-circle">
+                        <div style="font-size:2.2rem; font-weight:bold; color:var(--gold-dark);">${score}</div>
+                        <div style="font-size:0.8rem; color:var(--text-dark);">من 100 درجة</div>
+                    </div>
+                    <p style="color:var(--gold-dark); font-weight:bold; margin-bottom:15px;">إجاباتك الصحيحة: <b>${correct}</b> من <b>${currentQuizQuestions.length}</b> سؤالاً</p>
+                    
+                    <div style="display:flex; justify-content:center; gap:10px; margin-bottom:22px; flex-wrap:wrap;">
+                        <button class="nav-btn" onclick="${retryFunction}" style="padding:12px 22px;">🔄 إعادة محاولة الاختبار</button>
+                        <button class="nav-btn" onclick="openCertificateModal('${score}', '${quizTypeName}')" style="background: linear-gradient(135deg, #8a6218 0%, #d4af37 50%, #704c0d 100%); padding:12px 22px;">📜 استعراض الشهادة الملكية الفاخرة</button>
+                    </div>
+                    
+                    <h3 style="text-align:right; font-family:'Amiri', serif; color:var(--gold-dark); margin-bottom:12px; border-bottom:1px dashed var(--gold-border); padding-bottom:5px;">📜 مراجعة إجابات الاختبار والتغذية الراجعة:</h3>
+                    <div style="max-height:380px; overflow-y:auto; padding-left:5px;">
+                        ${reviewHTML}
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
